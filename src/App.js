@@ -13,6 +13,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="cars" element={<CarsPage />} />
           <Route path="cars/add" element={<AddCarPage />} />
+          <Route path="cars/:id/update" element={<AddCarPage />} />
           <Route path="*" element={<h1>ERROR 404 Not Found</h1>} />
         </Routes>
       </BrowserRouter>

@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import "./AddCarPage.css";
 import { v4 as uuidv4 } from "uuid";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 function AddCarPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [users, setUsers] = useState([]);
   const [carModels, setCarModels] = useState([]);
   const [formData, setFormData] = useState({
@@ -54,22 +58,47 @@ function AddCarPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("FORM", formData);
-    const response = await fetch("http://localhost:3000/cars/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await response.json();
-    console.log("DATA SEND", data);
+    const response = await fetch(
+      `http://localhost:3000/cars/${id ? id + "/update" : "create"}`,
+      {
+        method: id ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+    if (response.ok) {
+      navigate(`/cars`);
+    }
   };
+
+  useEffect(() => {
+    if (id) {
+      const getCar = async () => {
+        const response = await fetch(
+          `http://localhost:3000/cars/${id}/details`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Allow-Access-Control-Origin": "*",
+            },
+          }
+        );
+        const data = await response.json();
+        console.log("CAR details", data);
+        setFormData(data);
+      };
+      getCar();
+    }
+  }, [id]);
 
   return (
     <div className="container">
       <Navbar />
 
-      <h1>Add Car</h1>
+      <h1>{id ? "Edit car" : "Add car"}</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="make">Transmission</label>
         <select
@@ -147,25 +176,32 @@ function AddCarPage() {
           value={formData.description}
         />
 
-        <label htmlFor="ownerId">Owner</label>
-        <select
-          id="ownerId"
-          name="ownerId"
-          required
-          onChange={handleChange}
-          value={formData.ownerId}
-        >
-          <option value="" disabled>
-            Select Owner
-          </option>
-          {users.map((user) => (
-            <option key={user.id} value={user.id}>
-              {user.userName}
-            </option>
-          ))}
-        </select>
+        {!id && (
+          <>
+            <label htmlFor="ownerId">Owner</label>
+            <select
+              id="ownerId"
+              name="ownerId"
+              required
+              onChange={handleChange}
+              value={formData.ownerId}
+            >
+              <option value="" disabled>
+                Select Owner
+              </option>
+              {users.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.userName}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
 
-        <input type="submit" value="Create Car" />
+        <div className="row">
+          <input type="submit" value={id ? "Update car" : "Add car"} />
+          <button onClick={() => navigate("/cars")}>Cancel</button>
+        </div>
       </form>
     </div>
   );

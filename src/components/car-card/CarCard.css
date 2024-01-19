@@ -18,6 +18,8 @@
 
 .card:hover {
   transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .card-image {
@@ -67,4 +69,21 @@
 .card-button:hover {
   background-color: #282c34;
   color: #61dafb;
+}
+
+.delete-button {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background-color: #dc3545;
+  color: #fafafa;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.delete-button:hover {
+  background-color: #fafafa;
+  color: #dc3545;
 }
