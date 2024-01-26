@@ -11,7 +11,7 @@ import RegisterPage from "./pages/login/RegisterPage";
 import { useSelector } from "react-redux";
 
 function App() {
-  let savedToken = localStorage.getItem("authToken");
+  let savedToken = localStorage.getItem("token");
   const { token } = useSelector((state) => state.auth);
 
   let isAuthenticated = token.accessToken || savedToken;
