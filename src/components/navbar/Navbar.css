@@ -10,6 +10,11 @@
   align-items: center;
 }
 
+.navbar > :last-child {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
 .link {
   color: #fafafa;
   text-decoration: none;
@@ -19,4 +24,9 @@
 
 .link:hover {
   color: #61dafb;
+}
+
+h3 {
+  color: #fafafa;
+  margin-left: auto;
 }

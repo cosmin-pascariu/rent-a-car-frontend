@@ -1,4 +1,75 @@
 .App {
   width: 100%;
   background-color: #282c34;
+  min-height: 100vh;
+}
+
+.login {
+  width: 100%;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Arial", sans-serif;
+}
+
+h1 {
+  color: #fff;
+  font-family: "SF Mono", sans-serif;
+  font-size: 6.2rem;
+  margin-bottom: 100px;
+}
+
+h2 {
+  color: #fff;
+  font-family: "SF Mono", sans-serif;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+.login-container {
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #000;
+}
+
+.login-form input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #61dafb;
+  color: #282c34;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login-form input[type="submit"]:hover {
+  background-color: #9fe2fb;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #000;
 }

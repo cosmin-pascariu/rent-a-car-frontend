@@ -72,7 +72,7 @@
 }
 
 .delete-button {
-  width: 95%;
+  width: 100%;
   border: none;
   border-radius: 12px;
   background-color: #dc3545;
@@ -81,7 +81,6 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  margin: 10px;
 }
 
 .delete-button:hover {

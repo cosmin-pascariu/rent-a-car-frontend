@@ -1,42 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import "./CarsPage.css";
 import CarCard from "../../components/car-card/CarCard";
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function CarsPage() {
-  const [cars, setCars] = useState([]);
-  const location = useLocation();
-
-  const getCars = async () => {
-    const response = await fetch("http://localhost:3000/cars", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Allow-Access-Control-Origin": "*",
-      },
-    });
-    const data = await response.json();
-    console.log(data);
-    setCars(data);
-  };
+  const [carsData, setCarsData] = useState([]);
+  const { cars } = useSelector((state) => state.cars);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.state?.refresh) {
-      getCars();
-    }
-  }, [location.state]);
-
-  useEffect(() => {
-    getCars();
-  }, []);
+    setCarsData(cars);
+  }, [cars]);
 
   return (
     <div className="mainContainer">
       <Navbar />
       <div className="space"></div>
-      <h1>Cars</h1>
-      {cars.length > 0 ? (
+      <div className="header-container">
+        <button className="add-button" onClick={() => navigate("/cars/add")}>
+          Add Car
+        </button>
+        <h1>Reservations</h1>
+        <div>Filters</div>
+      </div>
+      {carsData.length > 0 ? (
         <div className="cars-container">
           {cars.map((car) => (
             <CarCard

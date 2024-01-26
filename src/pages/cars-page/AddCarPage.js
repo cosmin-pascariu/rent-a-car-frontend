@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import "./AddCarPage.css";
-import { v4 as uuidv4 } from "uuid";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getCarsAction } from "../../store/actions/carsActions";
+import { useDispatch } from "react-redux";
 
 function AddCarPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [users, setUsers] = useState([]);
   const [carModels, setCarModels] = useState([]);
@@ -69,6 +71,7 @@ function AddCarPage() {
       }
     );
     if (response.ok) {
+      dispatch(getCarsAction());
       navigate(`/cars`);
     }
   };
@@ -97,6 +100,7 @@ function AddCarPage() {
   return (
     <div className="container">
       <Navbar />
+      <div className="space"></div>
 
       <h1>{id ? "Edit car" : "Add car"}</h1>
       <form onSubmit={handleSubmit}>

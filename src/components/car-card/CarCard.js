@@ -3,9 +3,12 @@ import "./CarCard.css";
 import AudiImage from "../../assets/images/cars-big/passat-box.png";
 import BMWImage from "../../assets/images/cars-big/bmw-box.png";
 import { useNavigate } from "react-router-dom";
+import { getCarsAction } from "../../store/actions/carsActions";
+import { useDispatch } from "react-redux";
 
 function CarCard({ id, model, price }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleCardClick = () => {
     console.log("card clicked", id);
@@ -24,6 +27,7 @@ function CarCard({ id, model, price }) {
       alert("Error deleting car");
       return;
     }
+    dispatch(getCarsAction());
     navigate("/cars", { state: { refresh: true } });
   };
 
